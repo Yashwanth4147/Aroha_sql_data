@@ -1,0 +1,74 @@
+1.Find out different treatments we provide from last three years.
+*select treat_name, year(treat_start_on) as year_started 
+from treatment
+join treat_typeon on treatment.treat_type_id=treat_type.treat_type_id 
+and treat_start_on between curdate()-interval 3 year and curdate();
+
+
+2.Find the number patients we get from each  country
+*select count(patient_id),country
+from patient p join location l
+on p.loc_id=l.loc_id
+gropuby country;
+
+3.Find all the patients who are currently taking the treatment of type Ayurvedic
+*Select patient_nm 
+from patient p join pat_treatment pt
+on p.patient_id=pt.patient_id and
+pt.treat_id=t.treatment_id and
+t.treat_id=pt.treat_id and 
+treat_type_desc="Ayurvadic' and
+treat_date=curdate();
+
+4.Find all the patients who are coming from metro cities (loc_type = 'Metro')
+select patient_nm,
+from patient p inner join location l
+on p.loc_id=l.loc_id and
+l.loc_type='Metro;
+
+5.Find the number of customers who are having insurance
+Select count(pat_id)
+from patient
+where insurance_flg IS NOT Null;
+
+6.Find all the days where we provided more than 100 treatmentsin Ayurvedic type
+select treat_date,treat_name count(pat_treat_id) as no_of_treatments 
+from treatment t join pat_treatment pt on t.trat_id=pt.treat_id 
+and treat_name='Ayurvedic'
+groub by treat_date,treat_name having count(pat_treat_id)>100;
+
+7.Find the doctor who have the most number of treatments on 03-JAN-2013
+Select doc_nm,count(pat_treat_id),treat_date
+from doctor d  join pat_treatment pt
+on d.doc_id=pt.doc_id
+where t.treat_date='03-JAN-2013'
+group by doc_nm
+having max(pat_treat_id);
+
+8.Find the doctor who did not have any treatments on 03-JAN-2013
+select doc_name
+from doctor
+where doc_id not in(select doc_id from pat_treatment where treat_date='2013-01-03');
+
+9.Find the treatments which were commonly given by both Doctor ‘RAM’ and ‘TIM’ gave on 03-JAN-2013
+select treat_name
+from doctor d inner join pat_treatment pt 
+on d.doc_id=pt.doc_id inner join treatment t 
+on pt.treatment_id=t.treatment_id and
+doc_nm in('RAM','TIM')
+and treat_date='03-JAN-2013';
+
+***10.List treatment type, treatment name, Customer Country, Number of Customers who take Ayrvadeic treatment type.
+select treat_type_desc,treat_name,country,count(patient_id)
+from treat_type tp join treatment t
+on tp.treat_type_id=t.treatment_id and
+tp.treat_id=pt.treat_id
+and pt.patient_id=p.patient_id
+and p.loc_id=l.loc_id 
+group by patient_nm,treat_type_desc,treat_name,country
+having treat_type_desc='Ayuvadic';
+
+
+
+
+ 

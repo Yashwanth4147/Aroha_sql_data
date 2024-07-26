@@ -1,0 +1,23 @@
+1. Create a table by name guest with all the columns as mentioned below.
+guest_id	numeric(10)
+guest_name	varchar(20)
+city		varchar(20)
+state		varchar(20)
+
+2. Alter the guest table to include the columns dob and gender
+
+3. Change the data type of guest name from varchar(20) to varchar(30)
+
+4. Rename the table guest to guest_details
+
+5. Rename column dob to date_of_birth
+
+6. Insert a couple of records into the guest table
+
+7. Add a column country into the guest table and update the country_name for the guests
+
+8. Delete all the guests from Delhi
+
+9. Delete all the guests who do not have a phone number
+
+10. Update the city name of Bombay to Mumbai

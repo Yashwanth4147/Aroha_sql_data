@@ -1,0 +1,1005 @@
+Patient Treatment Tables
+-------------------------
+create table treat_type
+
+(treat_type_id varchar2(5) primary key,
+
+treat_type_desc varchar2(20),
+
+treat_type_code varchar2(5)
+
+);
+
+ 
+
+insert all
+
+into treat_type values('tt1','ayurvedic','A1')
+
+into treat_type values('tt2','homeopathy','B1')
+
+into treat_type values('tt3','english','C1')
+
+select * from dual;
+
+ 
+
+ 
+
+ 
+
+create table treatment
+
+(treat_id varchar2(5) primary key,
+
+treat_type_id varchar2(5) references treat_type(treat_type_id),
+
+treat_code varchar2(5),
+
+treat_name varchar2(20),
+
+treat_start_on date
+
+)
+
+ 
+
+insert all
+
+into treatment values('t1','tt1','AA1','angiogram','21-apr-15')
+
+into treatment values('t2','tt1','AA2','physiotherapy','09-jun-15')
+
+into treatment values('t3','tt2','AA3','diabetic treatment','28-dec-15')
+
+into treatment values('t4','tt1','AA4','typhoid treatment','30-aug-15')
+
+into treatment values('t5','tt3','AA5','fever medication','12-mar-15')
+
+select * from dual;
+
+ 
+
+ 
+
+create table pat_treatment
+
+(pat_treat_id varchar2(5) primary key,
+
+treat_id varchar2(5) references treatment(treat_id),
+
+treat_date date,
+
+patient_id varchar2(5) references patient(patient_id),
+
+doc_id varchar2(5) references doctor(doc_id),
+
+treat_dur_days number(3)
+
+)
+
+ 
+
+insert all
+
+into pat_treatment values('pt1','t1','23-may-15','p1','d1',10)
+
+into pat_treatment values('pt2','t1','24-jun-15','p1','d1',10)
+
+into pat_treatment values('pt3','t3','01-jan-16','p4','d3',8)
+
+into pat_treatment values('pt4','t1','25-sep-15','p3','d2',10)
+
+into pat_treatment values('pt5','t4','15-oct-15','p2','d1',20)
+
+into pat_treatment values('pt6','t5','18-apr-15','p3','d2',3)
+
+select * from dual;
+
+ 
+
+ 
+
+create table patient
+
+(patient_id varchar2(5) primary key,
+
+patient_nm varchar2(20),
+
+patient_dob date,
+
+gender char(1),
+
+loc_id varchar2(5) references location(loc_id),
+
+phone_no number(10),
+
+insurance_flg varchar2(3)
+
+)
+
+ 
+
+ 
+
+insert all
+
+into patient values('p1','arun','19-jun-86','M','l1',9867342167,'y')
+
+into patient values('p2','ajay','19-mar-89','M','l1',8857432198,'y')
+
+into patient values('p3','abhay','19-sep-85','F','l2',9982347821,null)
+
+into patient values('p4','akash','19-jun-88','F','l3',9458937123,'y')
+
+into patient values('p5','akul','19-oct-92','M','l4',9889933271,'y')
+
+into patient values('p6','amit','19-nov-87','M','l4',9572194389,null)
+
+into patient values('p7','ashish','19-dec-93','F','l1',9117823569,'y')
+
+select * from dual;
+
+ 
+
+ 
+
+create table location
+
+(loc_id varchar2(5) primary key,
+
+loc_nm varchar2(20),
+
+loc_type varchar2(5),
+
+state varchar2(20),
+
+country varchar2(20)
+
+)
+
+ 
+
+insert all
+
+into location values('l1','bangalore','metro','karnataka','india')
+
+into location values('l2','Hyderabad','metro','karnataka','india')
+
+into location values('l3','mumbai','metro','delhi','india')
+
+into location values('l4','chennai','metro','mumbai','india')
+
+select * from dual;
+
+ 
+
+ 
+
+ 
+
+create table doctor
+
+(doc_id varchar2(5) primary key,
+
+doc_nm varchar2(20),
+
+doc_speciality varchar2(20)
+
+);
+
+ 
+
+ 
+
+insert all
+
+into doctor values('d1','tim','heart')
+
+into doctor values('d2','ram','general medicine')
+
+into doctor values('d3','raj','diabetictyphoid')
+
+select * from dual;
+
+
+Actors table
+-------------
+create table actor (
+actor_id number(5) primary key,
+actor_name varchar2(10),
+gender varchar2(10),
+dob date,
+email varchar2(30),
+phone number(12),
+city varchar2(30),
+start_date date);
+
+
+
+create table movie_type(
+movie_type_id number(5) primary key,
+movie_type_desc varchar2(30));
+
+create table movie (
+movie_id number(5) primary key,
+movie_name varchar2(20),
+release_date date,
+movie_type_id number(5) references movie_type(movie_type_id));
+/
+create table role(
+role_id number(5) primary key,
+actor_id number(5)references actor(actor_id),
+movie_id number(5) references movie(movie_id),
+start_date date,
+end_date date,
+role_desc varchar2(30));  
+
+/
+select * from actor;
+/
+insert into movie_type values(100,'action');
+insert into movie_type values(101,'thriller');
+insert into movie_type values(102,'romance');
+insert into movie_type values(103,'comedy');
+insert into movie_type values(104,'horror');
+insert into movie_type values(105,'war');
+insert into movie_type values(106,'history');
+insert into movie_type values(107,'documentry');
+insert into movie_type values(108,'science fiction');
+insert into movie_type values(109,'biographical');
+insert into movie_type values(110,'sports');
+
+select * from movie_type;
+
+insert into movie values(200,'kgf','21-dec-2018',100);
+insert into movie values(201,'rrr','10-jan-2022',100);
+insert into movie values(202,'pushpa','10-july-2021',100);
+insert into movie values(203,'uturn','30-jun-2016',101);
+insert into movie values(204,'vikram vedha','12-feb-2018',101);
+insert into movie values(205,'drishya','01-may-2016',101);
+insert into movie values(206,'premam','18-aug-2015',102);
+insert into movie values(207,'magadheera','10-mar-2012',102);
+insert into movie values(208,'adyaksha','05-sep-2015',103);
+insert into movie values(209,'pizza','27-jul-2014',104);
+insert into movie values(210,'bahubali','10-jun-2016',105);
+insert into movie values(211,'sangolli rayanna','21-oct-2015',106);
+insert into movie values(212,'sachin billiob dreams','24-apr-2017',107);
+insert into movie values(213,'ms dhoni untold stroy','7-jul-2017',109);
+insert into movie values(214,'lagaan','04-mar-2001',110);
+
+
+
+select * from movie;
+
+INSERT INTO ACTOR VALUES(101,'RAMYA','F','20-mar-1989','RAMYA@GMAIL.COM',857437895646,'BANGALORE','12-mar-2016');
+INSERT INTO ACTOR VALUES(102,'NTR','M','12-mar-1987','NTR2@GMAIL.COM',857437895646,'HYDERABAD','11-jun-2006');
+INSERT INTO ACTOR VALUES(103,'DEEPIKA','F','20-aug-1976','DEEPIKA@GMAIL.COM',8938573443,'MUMBAI','27-jul-2008');
+INSERT INTO ACTOR VALUES(104,'PRAJWAL','M','20-oct-1965','PRJAWAL@GMAIL.COM',8573874746,'BANGALORE','22-aug-2010');
+INSERT INTO ACTOR VALUES(105,'MEGANA','F','20-dec-1985','MEGHANA@GMAIL.COM',857437647646,'MYSORE','18-sep-2003');
+INSERT INTO ACTOR VALUES(106,'SUDEEP','M','20-apr-1974','SUDEEP@GMAIL.COM',8574308744,'HUBALI','05-oct-2021');
+INSERT INTO ACTOR VALUES(107,'PRIYANKA','F','20-jul-1988','PRIYANKA@GMAIL.COM',8574236498,'MANGALORE','11-dec-2022');
+/
+INSERT INTO ROLE VALUES(10,102,210,'12-mar-2001','22-apr-2003','HERO');
+INSERT INTO ROLE VALUES(11,105,214,'12-mar-2002','22-apr-2005','SIDE ACTOR');
+INSERT INTO ROLE VALUES(12,105,210,'12-mar-2007','22-apr-2009','COMEDIAN');
+INSERT INTO ROLE VALUES(13,107,206,'12-mar-2010','22-apr-2012','HERO');
+INSERT INTO ROLE VALUES(14,101,207,'12-mar-2020','22-apr-2022','HEROIN');
+INSERT INTO ROLE VALUES(15,102,211,'12-mar-2006','22-apr-2012','TWIN CHARCTOR');
+
+Players table
+-------------
+create table stadium(std_id number(5) primary key,
+                        std_code varchar(20),
+                        std_name varchar(20),
+                        std_capacity number(10),
+                        std_type varchar(20),
+                        sdt_city varchar(20),
+                        std_opened_date date,
+                        std_status char(1)
+                        );
+
+
+create table team ( team_id number(4) primary key,
+                    team_nm varchar(20),
+                    game varchar(20),
+                    operational_form date,
+                    manager varchar(20)
+                    );
+                   
+create table team_owners ( own_id number(2) primary key,
+                            own_name varchar(20),
+                            team_id number(4),
+                            percentage number(3),
+                            foreign key(team_id) references team(team_id)
+                            );
+
+                           
+create table match ( match_id number(3) primary key,
+                    match_date date,
+                    game varchar(20),
+                    public_ticket number(10),
+                    sponsor_tickets number(10),
+                    public_ticket_price number(10),
+                    sponsor_tickets_price number(10),
+                    std_id number(5),
+                    home_team number(4),
+                    visiting_team number(4),
+                    foreign key(std_id) references stadium(std_id),
+                    foreign key(home_team) references team(team_id),
+                    foreign key(visiting_team) references team(team_id)
+                    );
+
+
+
+insert into stadium values(1000,'KA-BLR-001','Chinnaswamy Stadium',15000,'OUTDOOR','Bangalore','10-Feb-69','A');
+insert into stadium values(1001,'KA-BLR-002','Kanteerava Stadium',35000,'OUTDOOR','Bangalore','15-Aug-74','A');
+insert into stadium values(1002,'KA-MYS-001','Mysore Stadium',15000,'OUTDOOR','Mysore','18-Nov-88','A');
+
+
+insert into team values(50,'TITANS','Cricket','14-Mar-19','Shankar');
+insert into team values(51,'FLYERS','FootBall','13-Nov-20','Pranav');
+insert into team values(52,'BULLS','Cricket','18-Mar-18','Kumar');
+insert into team values(53,'STARS','FootBall','15-Aug-17','Subhash');
+insert into team values(54,'GIANTS','Cricket','12-Jan-17','Raman');
+
+
+insert into team_owners values(1,'SURAJ',50,100);
+insert into team_owners values(2,'RAGHAVAN',51,75);
+insert into team_owners values(3,'Birla',51,25);
+insert into team_owners values(4,'TATA Group',52,100);
+insert into team_owners values(5,'Uma',53,30);
+insert into team_owners values(6,'Vijay',53,60);
+insert into team_owners values(7,'RAMA',54,100);
+insert into team_owners values(8,'KAMAL',53,10);
+
+
+insert into match values(10,'10-Jun-22','Cricket',10000,4000,450,300,1000,50,52);
+insert into match values(11,'12-Jun-22','FootBall',25000,10000,300,150,1001,51,53);
+insert into match values(12,'15-Jul-22','FootBall',12500,2500,425,270,1000,53,51);
+insert into match values(13,'19-Jul-22','Cricket',10000,5000,600,250,1000,52,54);
+insert into match values(14,'20-Aug-22','Cricket',30000,5000,250,100,1001,54,50);
+commit;
+
+CREATE TABLE INPUT_SOURCE (P_ID NUMBER(10),YEAR NUMBER(10),SALES NUMBER(20));
+INSERT INTO INPUT_SOURCE VALUES(1002,2010,4500090);
+INSERT INTO INPUT_SOURCE VALUES(1002,2011,5500070);
+INSERT INTO INPUT_SOURCE VALUES(1002,2012,5700080);
+INSERT INTO INPUT_SOURCE VALUES(1003,2013,3000000);
+INSERT INTO INPUT_SOURCE VALUES(1003,2014,3250000);
+INSERT INTO INPUT_SOURCE VALUES(1002,2013,5000000);
+INSERT INTO INPUT_SOURCE VALUES(1003,2015,3100000);
+
+SELECT * FROM INPUT_SOURCE;
+SELECT * FROM OUPUT_TGT;
+
+CREATE TABLE OUTPUT_TGT (P_ID NUMBER(10),YEAR NUMBER(10),SALES NUMBER(20),PRE_YEAR NUMBER(20),TREND VARCHAR(10));
+
+create table sales1(
+sales_id number(5) primary key,
+sales_date date,
+qty number(10),
+cust_id number(5) references cust1 (cust_id),
+prod_id number(5) references product1 (prod_id));
+
+desc sales1;
+insert into sales1 values(51,'01-jun-2014',4,2,101);
+insert into sales1 values(52,'14-aug-2021',2,1,103);
+insert into sales1 values(53,'12-may-2022',2,1,104);
+insert into sales1 values(54,'03-jul-2017',3,5,102);
+insert into sales1 values(55,'05-jan-2018',1,4,105);
+insert into sales1 values(56,'08-dec-2020',5,6,106);
+insert into sales1 values(57,'05-jul-2022',2,4,105);
+insert into sales1 values(58,'08-jul-2021',3,3,101);
+commit;
+
+create table sales1(sales_id_id number(5) primary key,qty, varchar(30));
+insert into manufacturer values(1001,'akhil');
+insert into manufacturer values(1002,'venkat');
+insert into manufacturer values(1003,'sai kumar');
+insert into manufacturer values(1004,'rudresh');
+insert into manufacturer values(1005,'sanjay');
+
+select * from 1;
+alter table product1 add prod_family varchar2(20);
+insert into product1 values (101,'pen',100,1002,'stationary');
+insert into product1 values (102,'table',5000,1001,'furnisher');
+insert into product1 values (103,'chair',2000,1003,'furnisher');
+insert into product1 values (104,'tv',20000,1004,'electronics');
+insert into product1 values (105,'computer',50000,1004,'electronics');
+insert into product1 values (106,'book',200,1002,'stationary');
+commit;
+rollback;
+
+select * from product1;
+select * from manufacturer;
+select * from cust1;
+select * from sales1;
+--1.find the region which is  having highest female customers.
+select region
+from cust1
+where gender ='female'
+group by region
+having count(cust_id) in (select max(count(cust_id))
+                          from cust1
+                          where gender='female'
+                          group by region);
+
+--2.find the best sessling product name,manufacturer name as of 1-jan-2014
+
+select *
+from (select prod_name,manufacture_name,sum(qty),dense_rank() over (order by sum(qty) desc)r
+      from product1 p,manufacturer m,sales1 s
+      where p.prod_id=s.prod_id and p.manufacture_id =m.manufacture_id
+      --and sales_date='01-jun-14'
+      group by prod_name,manufacture_name)a
+where a.r=1;  
+
+
+--3.display the customer name and total value product purchased ids greater than 10000 on today
+
+select cust_name,sum(price*qty)
+from cust1 c,sales1 s,product1 p
+where c.cust_id=s.cust_id and p.prod_id=s.prod_id --and sales_date=sysdate
+group by cust_name
+having sum(price*qty)>10000;
+
+--4.display the most expensive product and manufacture name in its type
+
+select prod_name,manufacture_name
+from (select prod_name,manufacture_name,dense_rank() over(order by max(price)desc)r
+      from product1 p , manufacturer m
+      where m.manufacture_id=p.manufacture_id
+      group by prod_name,manufacture_name)a
+where a.r=1;      
+
+--5.display the products that are sold more than twice in the first quater of current year
+
+select prod_name
+from product1 p,sales1 s
+where p.prod_id=s.prod_id and to_char(sysdate,'q')=1 and to_char(sales_date,'yyyy')=to_char(sysdate,'yyyy')
+group by prod_name
+having count(sales_id)>2;
+
+--6.display region wise current year MTD and previous year MTD
+
+select region,sum(case when sales_date between trunc(sysdate,'month') and trunc(sysdate)then (qty*price) else 0 end)current_year_MTD,
+            sum( case when sales_date between trunc(add_months(sysdate,-12),'month') and trunc(add_months(sysdate,-12))
+            then (qty*price) else 0 end) previous_year_MTD
+from cust1 c,sales1 s,product1 p
+where c.cust_id = s.cust_id and p.prod_id = s.prod_id
+and (sales_date between trunc(sysdate,'month') and trunc(sysdate) or
+(sales_date between trunc(add_months(sysdate,-12),'month') and trunc(add_months(sysdate,-12))))
+group by region;
+/          
+select current_year.region,MTD_REV, PY_MTD_REV
+from (select region ,sum(qty*price) as MTD_REV
+          from cust1 c,sales1 s ,product1 p
+          where c.cust_id=s.cust_id and p.prod_id=s.prod_id and sales_date between trunc(sysdate,'month') and trunc(sysdate)
+          group by region)current_year,
+ 
+      (select region ,sum(qty*price) as PY_MTD_REV
+          from cust1 c,sales1 s ,product1 p
+          where c.cust_id=s.cust_id and p.prod_id=s.prod_id and sales_date between trunc(sysdate,'month') and trunc(sysdate)
+          group by region)previous_year
+          where current_year.region=previous_year.region;
+     
+--7.write query to give the output as
+ -- product_name     status
+  --Status to contain a message 'sold' if the product is sold atlest once in the current year else display 'not sold'
+ 
+select prod_name,'sold' as status
+from product1
+where prod_id in (select distinct prod_id
+                    from sales1
+                    where to_char(sales_date,'yyyy') =to_char(sysdate,'yyyy'))
+union all
+select prod_name,'not sold' as status
+from product1
+where prod_id not in (select distinct prod_id
+                      from sales1
+                      where to_char(sales_date,'yyyy') = to_char(sysdate,'yyyy'))
+
+
+
+select substr('aroha tech',-7) from dual
+
+select instr('aroha tech','a',6,1) from dual;
+
+ 
+
+Months_between--number
+
+Add_months--date
+
+next_day--date
+
+last_day--date
+
+round--date
+
+trunc--date
+
+ 
+
+date+number--date
+
+date-date--number
+
+date-number--date
+
+ 
+
+select trunc((sysdate-to_date('13-mar-1995'))/365) from dual;---date-date/365
+
+select trunc(months_between(sysdate,to_date('13-mar-1995'))/12) from dual;--months_between/12
+
+ 
+
+select sysdate+5 from dual;
+
+select to_date('21-jan-21')-to_date('21-jan-20') from dual--no of days
+
+select sysdate-5 from dual;
+
+ 
+
+--All the emps who joined in the first day of current year..
+
+select ename
+
+from emp
+
+where hiredate=trunc(sysdaye,'yy');
+
+--All the emps who joined in the first day of current year
+
+select ename
+
+from emp
+
+where hiredate=trunc(sysdaye,'mm');
+
+ 
+
+select trunc(sysdate,'yy') from dual;--date as output
+
+select trunc(to_date('11-jun-22'),'yy') from dual;--first day of current year
+
+select trunc(sysdate,'mm') from dual;--first day of current month
+
+select trunc(sysdate,'dd') from dual;--current date
+
+ 
+
+select round(sysdate,'yy') from dual;
+
+select round(to_date('11-jul-22'),'yy') from dual;
+
+select round(sysdate,'mm') from dual;
+
+select round(to_date('20-jul-22'),'mm') from dual;
+
+ 
+
+select months_between('12-feb-22','12-aug-21') from dual---No of months between the dates(no as output)
+
+select add_months(sysdate,12) from dual--date is output
+
+select last_day(sysdate) from dual--date is output--last day of the month
+
+select last_day(to_date('20-apr-22')) from dual
+
+select next_day(sysdate,'tuesday') from dual;--date is output
+
+ 
+
+first day of next year
+
+select to_char(add_months(trunc(sysdate,'yy'),12),'day') from dual
+
+ 
+
+---display the emps hired in current year
+
+select ename
+
+from emp
+
+where to_char(hiredate,'yy')=to_char(sysdate,'yy');
+
+Date functions
+
+1.FIRST DAY OF PRESENT Year
+
+2.Next year first day
+
+3.next year first monday date.
+
+4.FIRST DAY OF THE CURRENT WEEK (IT ALWAYS STARTS WITH SUNDAY)
+
+5.FIRST DAY OF THE NEXT WEEK
+
+6.FIRST DAY OF THE PREVIOUS WEEK
+
+7.FIRST DAY OF THE NEXT MONTH
+
+8.FIRST DAY OF THE PREVIOUS MONTH
+
+9.LAST DAY OF THE PREVIOUS MONTH
+
+10.First day of the current quarter
+
+11.First day of the previous quarter
+
+12.First day of the Next quarter
+
+13.last day of the current week
+
+14.last day of the next week
+
+15.last day of the previous week
+
+16.Last day of the current Quarter
+
+17.Last day of the previous quarter
+
+18.last day of the next Quarter.
+
+19.NEXT YEAR'S last day
+
+20.THIS YEAR LAST DAY
+
+create table customer
+
+(cust_id number(4) primary key,
+
+cust_name varchar2(20),
+
+cust_address varchar2(20),
+
+cust_city varchar2(20),
+
+phone_no number(10),
+
+cust_email varchar2(50));
+
+ 
+
+insert all
+
+into customer values(1101,'abc','ring road','bangalore',9656892,'abc@gmail.com')
+
+into customer  values(1102,'xyz','south end','mysore',9656892,'xyz@yahoo.co.in')
+
+into customer values(1103,'pqr','ashoka pillar','hassan',9656892,'pqr@gmail.com')
+
+into customer values(1104,'lmn','nandanavana','tumkur',9656892,'lmn@gmail.com')
+
+into customer values(1105,'mno','tnagar','hubli',9656892,'mno@yahoo.co.in')
+
+into customer values(1106,'tim','rrnagar','bangalore',9632192,'tim123@gmail.com')
+
+select * from dual
+
+create table customer_retail
+
+(cust_id number(4) primary key,
+
+cust_name varchar2(20),
+
+cust_address varchar2(20),
+
+cust_city varchar2(20),
+
+phone_no number(10),
+
+cust_email varchar2(50));
+
+ 
+
+insert all
+
+into customer_retail values(1101,'abc','ring road','bangalore',9656892,'abc@gmail.com')
+
+into customer_retail values(1102,'xyz','south end','mysore',9656892,'xyz@yahoo.co.in')
+
+into customer_retail values(1103,'pqr','ashoka pillar','hassan',9656892,'pqr@gmail.com')
+
+into customer_retail values(1104,'lmn','nandanavana','tumkur',9656892,'lmn@gmail.com')
+
+into customer_retail values(1105,'mno','tnagar','hubli',9656892,'mno@yahoo.co.in')
+
+into customer_retail values(1106,'tim','rrnagar','bangalore',9632192,'tim123@gmail.com')
+
+select * from dual
+
+ 
+
+ 
+
+create table product_retail
+
+(prod_id number(5),
+
+p_name varchar2(20),
+
+price number(10),
+
+cost number(10),
+
+launch_date date,
+
+p_family varchar2(20))
+
+ 
+
+insert into product_retail values(100,'tv',40000,45000,'12-jan-21','electronics')
+
+insert into product_retail values(200,'fridge',20000,18000,'24-feb-22','electronics')
+
+insert into product_retail values(300,'Computer',30000,25000,'11-mar-20','electronics')
+
+insert into product_retail values(400,'Printer',10000,8000,'16-aug-20','electronics')
+
+insert into product_retail values(500,'table',25000,20000,'14-sep-19','Furniture')
+
+insert into product_retail values(600,'sofa',80000,95000,'10-dec-20','Furniture')
+
+ 
+
+create table sales_retail
+
+(sales_id number(4) primary key,
+
+sales_date date,
+
+cust_id number(4) references customer_retail(cust_id),
+
+prod_id number(4) references product_retail(prod_id),
+
+amount number(10));
+
+ 
+
+ 
+
+ 
+
+insert all
+
+into sales_retail values(1,'22-apr-20',1101,100,25000)
+
+into sales_retail values(2,'13-dec-21',1102,100,35000)
+
+into sales_retail values(3,'29-mar-20',1103,200,65000)
+
+into sales_retail values(4,'19-jun-19',1104,200,85000)
+
+into sales_retail values(5,'20-nov-18',1105,300,95000)
+
+into sales_retail values(6,'20-may-21',1105,300,25000)
+
+into sales_retail values(7,'21-may-20',1101,300,45000)
+
+into sales_retail values(8,'22-may-20',1101,300,55000)
+
+into sales_retail values(9,'23-may-21',1101,400,45000)
+
+into sales_retail values(10,'24-may-20',1102,100,15000)
+
+into sales_retail values(11,'20-may-19',1102,200,25000)
+
+into sales_retail values(12,'21-may-18',1103,400,45000)
+
+into sales_retail values(13,'22-may-19',1104,500,55000)
+
+into sales_retail values(14,'23-may-20',1105,200,45000)
+
+into sales_retail values(15,'24-may-20',1105,100,15000)
+
+select * from dual;
+
+
+
+create table treat_type
+
+(treat_type_id varchar2(5) primary key,
+
+treat_type_desc varchar2(20),
+
+treat_type_code varchar2(5)
+
+);
+
+ 
+
+insert all
+
+into treat_type values('tt1','ayurvedic','A1')
+
+into treat_type values('tt2','homeopathy','B1')
+
+into treat_type values('tt3','english','C1')
+
+select * from dual;
+
+ 
+
+ 
+
+ 
+
+create table treatment
+
+(treat_id varchar2(5) primary key,
+
+treat_type_id varchar2(5) references treat_type(treat_type_id),
+
+treat_code varchar2(5),
+
+treat_name varchar2(20),
+
+treat_start_on date
+
+)
+
+ 
+
+insert all
+
+into treatment values('t1','tt1','AA1','angiogram','21-apr-15')
+
+into treatment values('t2','tt1','AA2','physiotherapy','09-jun-15')
+
+into treatment values('t3','tt2','AA3','diabetic treatment','28-dec-15')
+
+into treatment values('t4','tt1','AA4','typhoid treatment','30-aug-15')
+
+into treatment values('t5','tt3','AA5','fever medication','12-mar-15')
+
+select * from dual;
+
+ 
+
+ 
+
+create table pat_treatment
+
+(pat_treat_id varchar2(5) primary key,
+
+treat_id varchar2(5) references treatment(treat_id),
+
+treat_date date,
+
+patient_id varchar2(5) references patient(patient_id),
+
+doc_id varchar2(5) references doctor(doc_id),
+
+treat_dur_days number(3)
+
+)
+
+ 
+
+insert all
+
+into pat_treatment values('pt1','t1','23-may-15','p1','d1',10)
+
+into pat_treatment values('pt2','t1','24-jun-15','p1','d1',10)
+
+into pat_treatment values('pt3','t3','01-jan-16','p4','d3',8)
+
+into pat_treatment values('pt4','t1','25-sep-15','p3','d2',10)
+
+into pat_treatment values('pt5','t4','15-oct-15','p2','d1',20)
+
+into pat_treatment values('pt6','t5','18-apr-15','p3','d2',3)
+
+select * from dual;
+
+ 
+
+ 
+
+create table patient
+
+(patient_id varchar2(5) primary key,
+
+patient_nm varchar2(20),
+
+patient_dob date,
+
+gender char(1),
+
+loc_id varchar2(5) references location(loc_id),
+
+phone_no number(10),
+
+insurance_flg varchar2(3)
+
+)
+
+ 
+
+ 
+
+insert all
+
+into patient values('p1','arun','19-jun-86','M','l1',9867342167,'y')
+
+into patient values('p2','ajay','19-mar-89','M','l1',8857432198,'y')
+
+into patient values('p3','abhay','19-sep-85','F','l2',9982347821,null)
+
+into patient values('p4','akash','19-jun-88','F','l3',9458937123,'y')
+
+into patient values('p5','akul','19-oct-92','M','l4',9889933271,'y')
+
+into patient values('p6','amit','19-nov-87','M','l4',9572194389,null)
+
+into patient values('p7','ashish','19-dec-93','F','l1',9117823569,'y')
+
+select * from dual;
+
+ 
+
+ 
+
+create table location
+
+(loc_id varchar2(5) primary key,
+
+loc_nm varchar2(20),
+
+loc_type varchar2(5),
+
+state varchar2(20),
+
+country varchar2(20)
+
+)
+
+ 
+
+insert all
+
+into location values('l1','bangalore','metro','karnataka','india')
+
+into location values('l2','Hyderabad','metro','karnataka','india')
+
+into location values('l3','mumbai','metro','delhi','india')
+
+into location values('l4','chennai','metro','mumbai','india')
+
+select * from dual;
+
+ 
+
+ 
+
+ 
+
+create table doctor
+
+(doc_id varchar2(5) primary key,
+
+doc_nm varchar2(20),
+
+doc_speciality varchar2(20)
+
+);
+
+ 
+
+ 
+
+insert all
+
+into doctor values('d1','tim','heart')
+
+into doctor values('d2','ram','general medicine')
+
+into doctor values('d3','raj','diabetictyphoid')
+
+select * from dual;

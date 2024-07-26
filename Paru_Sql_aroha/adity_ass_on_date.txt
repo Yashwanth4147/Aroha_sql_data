@@ -1,0 +1,133 @@
+1.Query to display customers whose name starts with ‘A’ and ends with ‘E’
+Select cust_name
+From customer
+Where cust_name like “A%E”;
+
+2.Query to display products which were launched in the first quarter of the current year
+select p_name
+from productpp
+where quarter(launched_date)=1
+and year(launched_date)=year(curdate());
+
+3.Query to display customers who made sales on their birthday
+Select c_name
+From cust c,sales1 s
+Where c.cust_id=s.customer_id and
+Day(sales_date)=day(dob) and
+Month(sales_date)=month(dob);
+
+
+
+5.Query to display first day of current week
+select date_sub(curdate(), interval dayofweek(curdate()) -1 day) as 1st_day_of_current_week;
+
+
+6.Query to display last day of current Quarter
+select makedate(year(curdate()),1) + interval quarter(curdate()) quarter
+- interval 1 day;
+
+7.Query to display products whose price is minimum in the table
+Select p_name
+From product
+Where price=(select min(price) from product);
+
+
+8.Query to display last day of current year
+select date_add(date_sub(curdate(), interval dayofyear(curdate()) day), interval 1 year) as last_day_of_current_year;
+
+9.Query to display first day of current month
+select date_sub(curdate(), interval dayofmonth(curdate()) -1 day) as 1st_day_of_current_month;
+
+10.Query to display female customers who are from Mumbai and have done sales on Monday of January month
+Select c_name
+From cust c,sales s
+Where c.cust_id=s.customer_id and gender=’female’ and city=”Mumbai” and
+Dayname(sales_date)=”Monday” and 
+Month(sales_date)=”January”;
+
+
+12.Display products whose profit is greater than 5000
+(Profit: Product_price-Product_cost)
+Select p_name ,price-cost as profit
+From product
+Where price-cost>5000;
+
+13.Query to display products is price is highest in its category
+Select p_name
+From product
+Where price=(select max(price) from product)
+Group by p_category
+
+
+15.Query to display male customers who made 10 sales in the first 10 days of ‘June’
+select c_name,count(sales_id)
+from cust c,sales1 s
+where c.cust_id=s.customer_id  and
+year(sales_date)=year(curdate()) and 
+month(sales_date)='June' and
+day(sales_date) between 1 and 10 
+group by c_name having count(sales_id)=10;
+
+
+
+16.Query to display female customers who made at least 15 transactions in the first 10 days of the current month
+select c_name,count(sales_id)
+from cust c ,sales1 s
+where c.cust_id=s.customer_id
+and gender='female' and day(sales_date) between 1 and 10 and 
+year(sales_date)=year(curdate())
+group by c_name having count(sales_id)>=15;
+
+
+17.Query to display products that are getting launched in the next  month
+select p_name 
+from productpp
+where month(launched_date)=month(curdate() + interval 1 month)
+and year(launched_date)=year(curdate());
+
+
+18.Query to display youngest customer in each city
+Select city_name,max(dob)
+From customer
+Group by city_name;
+
+
+19.Query to display customers who did not make any transactions in the past two months
+Select c_name
+From cust c,sales1 s
+where c.cust_id=s.customer_id and 
+sales_id not in(select sales_id from sales1) and 
+month(sales_date)=month(curdate() - interval 2 month) ;
+
+21.Query to display month wise number of transactions.
+Select sale_date,month(sales_date),count(sales_id)
+From sales1
+Group by month(sales_date);
+==============================================================================================================================================================
+select agency_name
+from agency
+where agency_id not in (select agency_id from property);
+unmatching record from left table-->left join
+
+*when we use aggregate fun then we should not write aggregate fun in where clause.
+*where:-it will filter the condition based on the table
+*having :-based on group
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

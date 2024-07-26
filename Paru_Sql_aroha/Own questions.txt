@@ -1,0 +1,76 @@
+7 different Queries.
+
+Simple Query
+1>WAQTD all the information of the customers.
+*Select * from customers;
+or
+Select Cust_id,Name,Address,phone,Email,State
+from Customers;
+
+
+Sub Query
+2>WAQTD the name of the employee whose join date is same as TIM;
+* Select name
+from Employees
+where Joindate In(select 
+			Joindate from Employees 
+				where ename ='TIM');
+
+
+Inner Join
+3>WAQTD to display employee name,customer id and customer name whose salary is greater than 30000;.
+* Select ename,cust_id,Name
+from employee e inner join Customer c
+on e.emp_id=c.emp_id
+where sal>30000;
+
+
+Left Outer Join
+4>Display the police name transaction wise;
+Select name
+from policies p join cust_policies c
+on p.policy_id=c.policy_id join
+transaction t on
+c.policy_id=t.policy_id
+
+*
+Right Outer Join
+5>Display employee id,employee name,customer phone number customer wise; 
+*Select emp_id,ename,phone
+from employee e right outer join Customer c
+on e.emp_id=c.emp_id
+group by Cust_id;
+
+Aggregate Query
+6>Display the average commission of all the employees org_cat wise.
+*Select avg(comm)
+from employees e join organization o
+on e.org_id=o.org_id join
+org_cat c on o.org_cat_id=c.org_cat_id
+group by org_cat;
+
+
+Corelated subquery
+7>Display the transaction whose amount is highest in its transaction type.
+*Select trans_id
+from transaction t1
+where amount=(select max(amount)
+from transaction t2 where
+t1.trans_type_id=t2.trans_type_id; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

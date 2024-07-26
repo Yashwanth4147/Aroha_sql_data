@@ -1,0 +1,185 @@
+May 24th 2021
+
+Patil
+-----
+Corelated subqueries (practice)
+comfortable in joins
+when we have more than one way to solve the problem (faster)
+
+Group by Having Clause --> alternatively he created co related
+
+Sharanya
+--------
+more than one options is always -->
+Simple, 
+Sub Query, 
+Join, 
+Aggregate, 
+Co related Sub Queries, 
+set operators, 
+derived,
+analytical functions
+
+scenario to solve Derived tables
+
+Sachin
+-------
+inner join -- SQL
+left join -- SQL
+right join -- SQL
+
+Union ALL -- Full join
+
+
+RAKESH
+-------
+
+PRAKASH
+-------
+corelated queries & derived tables
+
+
+Country				Resort				Customer
+1 IND				100, 1, TAJ			50, TIM, 1
+2 SL				101, 1, Oberai			51, RAM, 2
+3 BD				102, 1, LemonTree		52, IQBAL, 3
+				103, 2, BananaGroup		53, UMA, 1
+								54, Sachin,1
+								55, KUMAR, 1
+
+Country, NoOfResorts,NoOfCustomers
+IND	 3	     3
+SL	 1	     1
+BD	 0	     1
+
+inner join (country, resort = 4) (country, coustomer = 5)
+
+inner join (country, resort, customer ) = ?
+
+Parvathi
+--------
+more steps uses more compute
+
+Nishanth
+--------
+except analytical queries
+
+Nethra
+-------
+comfortable, different types
+
+Leela
+-----
+models helps to visualize
+able to write with the help of model
+
+Karthiga
+--------
+practicing, joins
+
+corp_customer
+-------------
+c1
+cust_id, cust_name, cust_since, city, state, 	Par_cust_id
+1	vijaya bank	12-MAR-93	BLR	KA	2
+2	Canara bank	14-APR-90	BLR	KA	2
+3	CITI Bank	15-JUL-78	BLR	KA	3
+4	SBI		12-JAN-89	MUM	MH	4
+5	KOTAK		22-MAR-96	MUM	MH	5
+6	ING VYSYA	10-AUG-78	MUM	MH	5
+
+c2
+cust_id, cust_name, cust_since, city, state, 	Par_cust_id
+1	vijaya bank	12-MAR-93	BLR	KA	2
+2	Canara bank	14-APR-90	BLR	KA	2
+3	CITI Bank	15-JUL-78	BLR	KA	3
+4	SBI		12-JAN-89	MUM	MH	4
+5	KOTAK		22-MAR-96	MUM	MH	5
+6	ING VYSYA	10-AUG-78	MUM	MH	5
+
+
+select distict par_cust_id from corp_customer;
+
+customer name, parent customer name
+vijaya bank    canara bank
+
+Self Join
+
+select c1.cust_name as Name, c2.cust_name as Parent
+from corp_customer c1 left join corp_customer (Right join try it)
+on c1.par_cust_id = c2.cust_id
+
+Chethan
+-------
+product
+prod_id	Prod_name	p_price	p_cost	p_family
+100	KEYBOARD	1000	800	COMPUTERS
+101	WIRELESS MOUSE	1500	900	COMPUTERS      
+102	CHAIR		2000	1800	FURNITURE
+103	MONITOR		2000	1700	COMPUTERS
+104	TABLE		3000	1900	FURNITURE
+
+
+
+Product Name	Price	Status
+------------------------------
+KEYBOARD	1000	Below Average Price
+CHAIR		2000	Above Average Price
+
+
+An analytic function computes values over a group of rows and returns a single result for each row.:-Analytical functions def.
+An analytic function can appear as a scalar expression operand in two places in the query:
+
+The SELECT list. If the analytic function appears in the SELECT list, its argument list and OVER clause can't refer to aliases introduced in the same SELECT list.
+The ORDER BY clause. If the analytic function appears in the ORDER BY clause of the query, its argument list can refer to SELECT list aliases.
+
+select 
+	prod_name, 
+	p_price, 
+	avg_price,
+	Case WHEN p_price > avg_price THEN "ABOVE AVERAGE"
+	     WHEN p_price < avg_price THEN "BELOW AVERAGE"
+	     ELSE "EQAUL TO AVERAGE"
+	END as Status
+from 
+	product,
+	(select avg(p_price) avg_price from product) temp1
+
+
+ProductName, Price, Rank
+------------------------
+select
+	prod_name,
+	p_cost,
+	p_price,
+	Rank() OVER ( ORDER BY p_price DESC ) 
+from 
+	product
+
+
+Rank these products with in family name
+---------------------------------------
+family_name, product_name, price, Rank
+COMPUTER	....		..	1
+COMPUTER	....		..	2
+FURNITURE	...		..	1
+
+select
+	family_name,
+	product_name
+	p_price
+	Rank() OVER (PARTITION family_name ORDER By p_price DESC)
+from
+	product
+
+
+
+
+
+
+
+
+
+
+
+

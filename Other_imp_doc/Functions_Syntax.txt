@@ -1,0 +1,221 @@
+CHARACTER FUNCTIONS:
+--------------------
+
+1. UPPER: SELECT UPPER('STRING') FROM DUAL;
+	
+	select upper('aroha') from dual;
+
+2. LOWER: SELECT LOWER('STRING') FROM DUAL;
+
+	select lower('AROHA') from dual;
+
+3. INITCAP: SELECT INITCAP('aroha technologies') FROM DUAL;
+
+	select initcap('aroha') from dual;
+
+4. ASCII: SELECT ASCII('A') FROM DUAL;
+
+5. CHAR: SELECT CHR(99) FROM DUAL;
+
+6. TRIM: SELECT TRIM('CHAR TO BE TRIMMED' FROM 'STRING') FROM DUAL;
+
+	SELECT TRIM('#' FROM 'ST#RIN#NG') FROM DUAL;
+
+7. LTRIM: SELECT LTRIM('STRING','CHAR TO BE TRIMMED') FROM DUAL;
+
+	select ltrim('qqqqaroha','q') from dual;
+
+8. RTRIM: SELECT RTRIM('STRING','CHAR TO BE TRIMMED') FROM DUAL;
+
+	select ltrim('aroha$$$$','$') from dual;
+
+9. LPAD: SELECT LPAD('STRING', NO OF POSITIONS TO BE PADDED, 'CHARACTER TO BE PADDED') FROM DUAL;
+
+	select lpad('aroha',10,'$') from dual;
+
+10. RPAD: SELECT RPAD('STRING', NO OF POSITIONS TO BE PADDED, 'CHARACTER TO BE PADDED') FROM DUAL;
+
+	select rpad('aroha',10,'$') from dual;
+
+11. SUBSTR: SELECT SUBSTR('STRING', STARTING POSITION, NO OF STRING TO BE EXTRACTED) FROM DUAL;
+
+	select substr('aroha tech',7,4) from dual;
+
+12. INSTR: SELECT INSTR('STRING', CHAR TO BE SEARCHED, STARTING POSITION, OCCURANCE) FROM DUAL
+
+	select instr('aroha','a',1,2) from dual;
+
+13. REPLACE: SELECT REPLACE( 'STRING' , CHAR TO BE REPLACED, TO WHICH CHAR HAVE TO BE REPLACED) FROM DUAL;
+
+	select replace('aroha','a','g') from dual;
+
+14. REVERSE: SELECT REVERSE('STRING') FROM DUAL;
+
+	select reverse('aroha') from dual;
+
+15. TRANSLATE: SELECT TRANSLATE ( 'STRING', STRING TO BE REPLACED, TO WHICH STRING HAVE TO BE REPLACED) FROM DUAL;
+
+	select translate('aroha','ao','xy') from dual;
+
+
+16. WM_CONCAT
+
+	select replace(wm_concat(sal),',',':') from emp
+	group by deptno;
+
+
+
+
+
+===========================================================================================
+Number Functions
+
+1.Round:
+
+2.Trunc:
+
+3.Mod: select mod(4,2) from dual;
+
+4.Ceil: select ceil(9.1) from dual;
+
+5.Floor: select floor(9.1) from dual;
+
+6.Abs: select abs(-7) from dual;
+
+7.Power: select power(2,2) from dual;
+
+8.Sqrt: select sqrt(4) from dual;
+
+9.Sign: select sign(-9) from dual; -1  select sign(9) from dual;  1
+
+10.Greatest: select greatest(1,4,9,8) from dual;
+
+11.Least: select least(1,4,9,8) from dual;
+
+
+-----------------------------------------------------------------------------------
+
+Date Functions
+
+1.Round:select round(sysdate,'yy') from dual;----Returns date
+
+2.Trunc:select trunc(sysdate,'yy') from dual-----Returns date
+
+3.Months_between: select months_between('22-jan-17','18-apr-18') from dual;----Returns number of months
+
+4.Last_day: select last_day('22-jul-18') from dual----Returns date
+
+5.Next_day: select next_day('14-feb-18'','monday') from dual----Returns date
+
+6.Add_months: select add_months('13-mar-18',5) from dual-----Returns date
+                                              to_char      to_char
+
+
+
+
+
+
+7.To_char:numeric-char, date-char         date        char       number
+                                              to_date      to_number
+
+select to_char(sysdate,'w') from dual
+select to_char(sysdate,'q') from dual;
+select to_char(sysdate,'dd') from dual;
+select to_char(sysdate,'mm') from dual;
+select to_char(sysdate,'mon') from dual;
+select to_char(sysdate,'month') from dual;
+select to_char(sysdate,'yy') from dual;
+select to_char(sysdate,'yyyy') from dual;
+select to_char(sysdate,'year') from dual;
+select to_char(sysdate,'day') from dual;
+select to_char(sysdate,'dy') from dual;
+select to_char(sysdate,'ddth') from dual;
+select to_char(sysdate,'ddsp month year') from dual;
+select to_char(sysdate,'ddspth') from dual;
+
+
+8.To_date:char-date
+
+select to_date('01','mm') from dual;
+select to_date('21','dd') from dual;
+select to_date('17','yy') from dual;
+select to_date(sysdate,'dd-mon-yy') from dual;
+select to_date(sysdate) from dual;
+
+
+9.To_number:char-number
+
+select last_day('01-jan-15') from dual;
+select add_months('01-jan-15',3) from dual;
+select trunc(months_between('19-dec-13','01-jan-12')) from dual;
+select next_day('19-dec-13','monday') from dual;
+select trunc(to_date('19-dec-15'),'yy') from dual;
+select round(to_date('19-dec-15'),'yy') from dual;
+select ename,sal,decode(comm,null,'NA',comm)as comm from emp;
+
+DATE+NUMBER=DATE(sysdate+1=date)-----Returns date
+DATE-NUMBER=DATE(sysdate-1=date)-----Returns date
+DATE-DATE=NUMBER(to_date('13-mar-16')-to_date('19-apr-18'))-------Returns no of days
+___________________________________________________________________________________________
+
+
+Analytical functions
+
+Rank(): select sal, rank() over(partition by deptno order by sal desc) from emp; 
+
+dense_rank(): select empno,ename,sal,deptno,dense_rank() over(partition by deptno order by sal desc) 
+		from scott.emp
+
+row_number(): select empno,ename,sal,deptno,row_number() over(partition by deptno order by sal)
+	       from scott.emp
+
+Lead(): select empno,ename,sal,lead(sal,1,0) over(order by sal) as lead_field 
+	from scott.emp;
+
+Lag(): select empno,ename,sal,lag(sal,1,0) over(order by sal) as lag_fields
+	from scott.emp
+
+Ntile: select sal,ntile(2) over(order by sal desc) from emp1;
+
+Ttile:
+
+wm_concat(): select deptno, wm_concat(sal) from emp
+		group by deptno;
+
+Running Sum: select ename, sal, sum(sal) over(order by sal) from emp
+		group by ename, sal;
+
+Count: select distinct deptno, count(empno) over (partition by deptno)
+	from emp;
+-------------------------------------------------------------------------------------------
+NVL: select nvl(comm,0) from emp;
+
+NVL2: select nvl2(to_char(comm),'yes','no') from emp;
+
+Nullif: select nullif(length(ename),length(job)) from emp;
+
+Coalesce: select coalesce(null,null,null,-1) from dual;
+
+	  select coalesce(null, 10, 6, -1) from dual;
+
+Decode: select ename,sal,decode(comm,null,'NA',comm)as comm from emp;
+
+case:
+
+select ename,sal, case
+		when comm is null then 0
+		else
+		comm
+		end as comm
+from emp;
+
+
+--------------------------------------------------------------------
+
+to_number()
+
+The to_number() Oracle conversion function converts data of type char or varchar2 to type 
+number. This Oracle conversoin function can accept a single parameter. For example,
+
+to_number ('25000')
+

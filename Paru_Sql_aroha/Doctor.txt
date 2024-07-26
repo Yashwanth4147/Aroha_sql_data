@@ -1,0 +1,80 @@
+1.Find all the patients who are treated in the first week of this month.
+Select patient_name
+From patient p,case s
+Where p.pat_ic=s.pat_id
+And month(amission_date)=month(curdate()) and
+Weekofyear(admission_date)=weekofyear(curdate());
+
+
+2.Find all the doctors who have more than 3 admissions today.
+select f_name,l_name,count(pat_id)
+from doctor d inner join case c 
+on d.doc_id=c.doc_id and admission_date=systdate
+and groupby f_name,l_name having count(pat_id)>3;
+
+3.Find the patient name (first,last) who got admitted today where the doctor is ‘TIM’
+Select f_name,l_name
+from doctor d inner join case c
+on d.doc_id=c.doc_id inner join patient p 
+on p.patient_id=c.patient_id 
+and admission_date=sysdate 
+and d.fname='tim';
+
+4.Find the Doctors whose phone numbers were not update (phone number is null)
+select f_name,l_name
+from doctor where phone is Null;
+
+
+5.Display the doctors whose specialty is same as Doctor ‘TIM’
+select f_name,l_name 
+from doctors 
+where specality=(select speciality from doctor where f_name like'TIM');
+
+6.Find out the number of cases monthly wise for the current year.
+Select count(pat_id),month(admission_date) 
+from case  
+where year(admission_date)=year(curdate) 
+group by month(admission_date);
+
+
+7.Display the doctors who don’t have any cases registered this week
+Select f_name,l_name,admission_date
+from doctor,case
+where doct_id not in
+(select doct_id from case where weekofyear(admission_date)=weekofyear(curdate());
+
+
+10.Display Doctor Name, patient count based on the cases registered in the hospital.
+select Fname,lname,count(pat_id) 
+from doctor join case 
+on d.doc_id=c.doc_id group by diagnosis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

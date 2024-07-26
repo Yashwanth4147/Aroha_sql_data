@@ -1,0 +1,24 @@
+1. List employees whose name having 4 characters
+2. List employees whose job is having 7 characters
+3. Find out how many times letter 'M' occurs in 'Mamatha'
+4. List the employees whose job is having last 3 characters as 'man'
+5. Display all the names whose name is having exactly 1 'L'
+6. Display the output as shown below,
+   /*Scott working as a clerk earns 3000 in dept 20*/
+7. Calculate number of L in string 'HELLLLL'
+8. Display first 3 characters of ename in lower case and rest everything in upper case.
+
+
+1.select e_name from emp
+where e_name like "____";
+
+2.select e_job from emp
+where e_job like "_______";
+
+4.select e_name from emp 
+where e_job like "%man";
+
+5.select e_name from emp
+where e_name like "%l%";
+
+7.select upper(e_name,1,3);

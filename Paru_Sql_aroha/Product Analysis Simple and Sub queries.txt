@@ -1,0 +1,54 @@
+PRODUCT:
+product_id
+product_name
+sub_category
+category
+price
+cost
+launch_date
+
+- Display all the product names
+select product_name from products;
+
+- Display the product names, their sub category and category
+select product_name,sub_category,category from products;
+
+- Display the product names who price is more than 500
+select product_name from products where price>500;
+
+- Display the product names who are from the category Electronics and their price is more than 1000
+select products_name from products where category="Electronics" and price>1000;
+
+- Display the product name whose price is more than the product Keyboard
+select product_name where price= (select price from product where product_name="keyboard");
+
+- Display the product names which were launched in the year 2010
+select product_name from products where year(launch_date)=2010
+
+- Display the product names which were launched in the current year
+select product_name from products where year(curdate())==year(launch_date);
+
+- Display the product names which were launched in the previous year
+- Display the product names that are yet to be launched
+- Display the product names and their profit. Consider price as the selling price and cost as the cost price
+select product_name,costprice-price as profit from products; 
+
+- Display the product name and their profit percentage----------------------------------------------------------
+select product_name,price-costprice/100 as profit percentage from products;
+
+- Display the Sub categories from the category that are not Electronics
+select sub_categories from products where product_id in (select product_id from products where category<>"electornics");
+select sub_categories from products where product_id in (select product_id from products where category not in"electornics");------------i did.
+
+
+- Display the product names whose profit percentage is more than 15----------------------------------------------------------
+select product_name,price-costprice as profit from products where profit/100>15;
+
+- Display the product names whose profit is 0---------------------------------------------------------------------------------
+select product_name,price-costprice as profit from products where profit/100==0;
+
+- Display the product names who belong to either Furniture or Office Supply category and their profit percentage is less than 5--------------------------------
+select product_name,price-costprice as profit from profit where category="furniture" or category="office supply and profit/100 <5;
+
+- Display the product names whose profit percentage is more than that of the product Mouse and are launched this year
+select product_name,price-cost_price as profit from products where product_id=(select product_id from products where product_name="mouse")and year(launch_date)=year(currdate));

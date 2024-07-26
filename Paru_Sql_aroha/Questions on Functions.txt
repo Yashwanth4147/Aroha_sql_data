@@ -1,0 +1,82 @@
+1. Display the characters from 5 till 4th character
+ position in the given string 'Encyclopedia'
+
+slect left('encyclopedia',5,4);
+
+
+2. Reverse the string 'Aroha'
+reverse('aroha');
+
+
+
+3. Diaply the string 'SQLServer ' for 10 times
+
+
+
+4. Replace the string 'oracle' of 'oracle server' with 'SQL'
+
+select replace('oracle','sql');
+
+
+5. Check whether the employee name contains %
+select * from employee
+where emp_name like "%";
+
+
+
+6.Display the current date
+
+
+
+7. Display the current month 
+select curdate();
+
+
+8. Dispaly the day week number of the current day
+
+
+9. Display the day of the cureent year
+
+
+
+10.Display the next year date
+
+
+11. Display only the previous year
+
+
+
+12. Display the day that is after 15 days from the current date
+
+
+
+13. Display the  previous 5th day of the current month
+
+
+
+14. Diaplay the days difference  of a customer whose dob is '1980/12/25'
+
+
+
+15. Display the customer names whose name starts with 'A'
+
+
+
+16. Display the customer names whose name ends with 's'
+
+
+
+17. Display the customer names whose name has 'p' anywhere
+
+
+18. Display the customers whose names have 'm' in the 8th position
+
+
+19.Display the customer names whose name satrts with either 'A' or 'R'
+
+
+
+20. Find the average of product price and round the value
+
+
+
